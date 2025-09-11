@@ -22,12 +22,9 @@ The function should take one argument called 'rows' and print a triangle out of 
 sprint("Exercise 5.1")
 
 def print_triangle_o(rows):
-    """
-    Print a centered triangle made of the letter 'o'.
-    """
-    pass
-
-sprint("---")
+    for i in range(1, rows+1):
+        line = 'o' * (2*i - 1)
+        print(line.center(2*rows - 1))
 
 """
 Exercise 5.2
@@ -41,11 +38,10 @@ You can assume that all the elements of the list are numbers.
 sprint("Exercise 5.2")
 
 def prod_list_easy(lst):
-    """Returns the product of the elements in a number list iteratively."""
-    pass
-
-sprint("---")
-
+    res=1
+    for i in lst:
+        res = res*i
+    return res
 """
 Exercise 5.3
 
@@ -62,10 +58,10 @@ Hint: Can you think of a recursive way to do it?
 sprint("Exercise 5.3")
 
 def prod_list_rec(lst):
-    """Returns the product of the elements in a number list recursively."""
-    pass
-
-sprint("---")
+    if len(lst) == 1 :
+        return lst[0]
+    else:
+        return lst[0]*prod_list_rec(lst[1:])
 
 """
 Exercise 5.4
@@ -82,15 +78,14 @@ Hint: The product of the empty set is 1.
 sprint("Exercise 5.4")
 
 def prod_list_rec_full(lst):
-    """
-    Recursively return the product of a list of numbers.
-
-    If the list contains non-numeric elements, a message is printed out
-    and the function returns nothing.
-    """
-    pass
-    
-sprint("---")
+    if not lst:
+        return 1
+    if not all(isinstance(x, (int, float)) for x in lst):
+        return None
+    if len(lst) == 1:
+        return lst[0]
+    else:
+        return lst[0] * prod_list_rec_full(lst[1:])
 
 """
 Exercise 5.5
@@ -104,15 +99,14 @@ expected outputs. If you solved the exercises correctly, the script will tell yo
 """
 
 ### Run test cases
-# if __name__ == "__main__":
-#     from testcases import (
-#         run_tests_ex51,
-#         run_tests_ex52,
-#         run_tests_ex53,
-#         run_tests_ex54,
-#     )
-
-#     run_tests_ex51()
-#     run_tests_ex52()
-#     run_tests_ex53()
-#     run_tests_ex54()
+if __name__ == "__main__":
+    from testcases import (
+        run_tests_ex51,
+        run_tests_ex52,
+        run_tests_ex53,
+        run_tests_ex54,
+        )
+    run_tests_ex51()
+    run_tests_ex52()
+    run_tests_ex53()
+    run_tests_ex54()

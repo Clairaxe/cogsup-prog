@@ -18,9 +18,7 @@ dct = {'a': 3, 'b': 7, 'c': -2, 'd': 10, 'e': 5}
 
 print("Exercise 4.1")
 
-pass
-
-print("---")
+print(sum(dct.values()))
 
 """
 Exercise 4.2
@@ -32,9 +30,7 @@ Print the key that has the largest value in dct.
 
 print("Exercise 4.2")
 
-pass
-
-print("---")
+print(max(dct.values()))
 
 """
 Exercise 4.3
@@ -46,9 +42,8 @@ Create a new dictionary with the squares of all the values in dct.
 
 print("Exercise 4.3")
 
-pass
-
-print("---")
+squared_dct = {key: value**2 for key, value in dct.items()}
+print(squared_dct)
 
 """
 Exercise 4.4
@@ -60,9 +55,8 @@ Print only the keys in dct whose values are even numbers.
 
 print("Exercise 4.4")
 
-pass
-
-print("---")
+even_keys = [key for key, value in dct.items() if value%2==0 ]
+print(even_keys)
 
 """
 Exercise 4.5
@@ -74,9 +68,8 @@ Create a new dictionary that swaps the keys and values in dct.
 
 print("Exercise 4.5")
 
-pass
-
-print("---")
+swap_dct = {value: key for key, value in dct.items()}
+print(swap_dct)
 
 """
 Exercise 4.6
@@ -87,13 +80,13 @@ Count the number of times each letter appears in the string 'ccctcctttttcc'
 and print the resulting dictionary.
 """
 
-s = 'ccctcctttttcc'
-
 print("Exercise 4.6")
 
-pass
-
-print("---")
+s = 'ccctcctttttcc'
+counts = {'c': 0, 't': 0}
+for r in s:
+    counts[r] += 1
+print(counts)
 
 """
 Exercise 4.7
@@ -105,14 +98,14 @@ and the string responses = 'jjjpjjpppppjj',
 print the list of corresponding words.
 """
 
-responses_mapping = {'j':'jazz','p':'pop'}
-responses = 'jjjpjjpppppjj'
-
 print("Exercise 4.7")
 
-pass
-
-print("---")
+responses_mapping = {'j':'jazz','p':'pop'}
+responses = 'jjjpjjpppppjj'
+res = []
+for l in responses:
+   res += [responses_mapping[l]]
+print(res)
 
 """
 Exercise 4.8
@@ -125,9 +118,10 @@ Merge the following two dictionaries into one:
 
 print("Exercise 4.8")
 
-pass
-
-print("---")
+dict1 = {'a': 1, 'b': 2}
+dict2 = {'c': 3, 'd': 4}
+merged_dict = dict1 | dict2
+print(merged_dict)
 
 """
 Exercise 4.9
@@ -140,9 +134,9 @@ create a new one whose keys are sorted alphabetically.
 
 print("Exercise 4.9")
 
-pass
-
-print("---")
+dct= {'zebra': 10, 'dolphin': 25, 'alligator': 3, 'monkey': 5, 'pig': 9}
+sorted_dct = {key: dct[key] for key in sorted(dct)}
+print(sorted_dct)
 
 """
 Exercise 4.10
@@ -155,6 +149,6 @@ create a new one whose values appear in increasing order.
 
 print("Exercise 4.10")
 
-pass
-
-print("---")
+dct = {'zebra': 10, 'dolphin': 25, 'alligator': 3, 'monkey': 5, 'pig': 9}
+sorted_dct_2 = {k: v for k, v in sorted(dct.items(), key=lambda item: item[1])}
+print(sorted_dct_2)

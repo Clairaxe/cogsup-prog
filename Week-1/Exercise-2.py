@@ -17,9 +17,9 @@ Write a for-loop that prints out the following line 20 times:
 
 print("Exercise 2.1")
 
-pass
+for i in range(20):
+  print(" All work and no play makes Jack a dull boy.")
 
-print("---")
 """
 Exercise 2.2
 
@@ -30,10 +30,8 @@ Write a for-loop that prints out the numbers from 0 up to 5 inclusive.
 
 print("Exercise 2.2")
 
-pass
-
-print("---")
-
+for i in range (6):
+  print(i)
 
 """
 Exercise 2.3
@@ -45,9 +43,8 @@ Write a for-loop that prints out the EVEN numbers from 2 up to 8 inclusive.
 
 print("Exercise 2.3")
 
-pass
-
-print("---")
+for i in range (2,9):
+  print(i)
 
 """
 Exercise 2.4
@@ -59,9 +56,8 @@ Now write another loop to print 9 through 0 (i.e., backwards).
 
 print("Exercise 2.4")
 
-pass
-
-print("---")
+for i in range (9,0,-1):
+  print(i)
 
 """
 Exercise 2.5
@@ -81,9 +77,9 @@ Write code that prints out the following sequence:
 
 print("Exercise 2.5")
 
-pass
-
-print("---")
+for i in range (1,9):
+  z = 'z'*i
+  print(z)
 
 """
 Exercise 2.6
@@ -106,9 +102,10 @@ of a simple print-statement.
 
 print("Exercise 2.6")
 
-pass
-
-print("---")
+for i in range (1,6):
+  for j in range (1,i+1):
+    print(j,end='')
+  print()
 
 """
 Exercise 2.7
@@ -135,9 +132,10 @@ your code needs to carry out for a certain value of rows.
 print("Exercise 2.7")
 
 rows = 5
-pass
-
-print("---")
+line = ''
+for i in range (0,rows):
+  line = (rows+1-i)*' '+(i*2+1)*'o'
+  print(line)
 
 """
 Exercise 2.8
@@ -165,6 +163,9 @@ on how to align the numbers.
 
 print("Exercise 2.8")
 
-pass
+row = 10
 
-print("---")
+for i in range (1,row+1):
+  for j in range (1,row+1) :
+    print(f"{i*j:5}", end="")
+  print()

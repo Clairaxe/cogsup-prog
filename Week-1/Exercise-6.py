@@ -5,11 +5,21 @@ Hint: Write an is_factor helper function.
 """
 
 def is_factor(d, n):
-    """True iff (if and only if) d is a divisor of n."""
-    pass
+    return n%d == 0
 
 def is_prime(n):
-    pass
+    for i in range (2,n):
+        if is_factor(i,n) :
+            return False
+    return True 
 
-list_of_primes = []
+
+def list_prime ():
+    lst=[]
+    for i in range (2,10000) :
+        if is_prime(i):
+            lst.append(i)
+    return lst
+
+list_of_primes = list_prime()
 print(list_of_primes)
