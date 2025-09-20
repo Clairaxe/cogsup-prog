@@ -1,5 +1,7 @@
 from expyriment import design, control, stimuli
 
+'''amélioration des fonctions précédentes! 
+maintenant on a une boucle while au lieu d'une boucle for'''
 
 def launching(temporal_gap=0, spatial_gap=0, green_speed=1):
 
@@ -15,7 +17,7 @@ def launching(temporal_gap=0, spatial_gap=0, green_speed=1):
     control.start()
 
     # Animate red square moving right until it reaches green square
-    while red_square.position[0] + 50 < green_square.position[0]:
+    while red_square.position[0] + 50 + spatial_gap < green_square.position[0]:
         red_square.move((5, 0))
         red_square.present(clear=True)
         green_square.present(clear=False)
