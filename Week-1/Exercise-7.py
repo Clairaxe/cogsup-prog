@@ -30,25 +30,26 @@ def input_integer(prompt):
         my_number = input(prompt)  
     return int(my_number)
 
-def guess_computer(last_guess,higher): # par dichotomie
-    if higher :
-        return int(last_guess*3/2)
-    else :
-        return int(last_guess*1/2)
+def guess_computer(low, high):
+    return (low + high) // 2
 
 my_number = input_integer("I choose a number (1-100): ")
 
-guess = 50 
+low = 1
+high = 100
+guess = guess_computer(low, high)
 
-while guess != my_number: # Repeat until the user guesses.
-    print ("computer guess: ")
-    print (guess)
-    if guess < my_number :
-        print("Your guess is too low!")  
-        guess = guess_computer(guess,True)
-    else :
-        print("Your guess is too high!\n")
-        guess = guess_computer(guess,False)
+while guess != my_number:  # Repeat until the user guesses.
+    print("Computer guess:", guess)
+
+    if guess < my_number:
+        print("Your guess is too low!")
+        low = guess + 1   
+    else:
+        print("Your guess is too high!")
+        high = guess - 1  
+
+    guess = guess_computer(low, high)
 
 print ("computer guess: ")
 print (guess)
