@@ -8,28 +8,33 @@ import random
 '''
 
 def load(stims):
-    for stim in stims :
+    for stim in stims:
         stim.preload()
 
-def timed_draw(stims):
+def timed_draw(stims, canvas): 
+    canvas.clear_surface()
     t0 = exp.clock.time
-    for stim in stims :
-        stim.draw()
+    for stim in stims: 
+        stim.plot(canvas)
     t1 = exp.clock.time
-    return (t1-t0)
+    canvas.present()
+    return (t1 - t0)
 
-def present_for(stims, t=1000):
-    for stim in stims :
-        t0 = exp.clock.time
-        stim.present(clear=True, update=True)
-        dt = exp.clock.time - t0
-        exp.clock.wait(t-dt)
+def present_for(stims, canvas, t=1000):
+    draw_time = timed_draw(stims, canvas)
+    t0 = exp.clock.time
+    dt = exp.clock.time - t0 + draw_time
+    if t - dt > 0:
+        exp.clock.wait(t - dt)
 
 """ Test functions """
 exp = design.Experiment()
 
 control.set_develop_mode()
 control.initialize(exp)
+
+width, height = exp.screen.size
+canvas = stimuli.Canvas((width, height))
 
 fixation = stimuli.FixCross()
 load([fixation])
@@ -46,7 +51,7 @@ for square in squares:
     if not square.is_preloaded:
         print("Preloading function not implemneted correctly.")
     stims = [fixation, square] 
-    present_for(stims, 500)
+    present_for(stims, canvas, 500)
     t1 = exp.clock.time
     durations.append(t1-t0)
     t0 = t1
@@ -54,3 +59,8 @@ for square in squares:
 print(durations)
 
 control.end()
+
+''' 
+Le résultat que j'obtiens:
+[505, 502, 501, 502, 502, 502, 502, 502, 502, 503, 502, 502, 501, 503, 501, 503, 502, 501, 503, 501]
+'''
