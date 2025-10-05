@@ -22,10 +22,8 @@ def timed_draw(stims, canvas):
 
 def present_for(stims, canvas, t=1000):
     draw_time = timed_draw(stims, canvas)
-    t0 = exp.clock.time
-    dt = exp.clock.time - t0 + draw_time
-    if t - dt > 0:
-        exp.clock.wait(t - dt)
+    if t - draw_time > 0:
+        exp.clock.wait(t - draw_time)
 
 """ Test functions """
 exp = design.Experiment()

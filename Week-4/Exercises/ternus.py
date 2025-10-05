@@ -7,12 +7,24 @@ def load(stims):
     for stim in stims:
         stim.preload()
 
-def present_for(stims, canvas, n_frames=5):
+
+def timed_draw(stims, canvas): # retour de timed_draw pour bien reprendre la logique de temps exact
     canvas.clear_surface()
+    t0 = exp.clock.time
     for stim in stims:
         stim.plot(canvas)
+    t1 = exp.clock.time
     canvas.present()
-    exp.clock.wait(int(n_frames * (1000/60.0)))  # convertir en ms
+    return t1 - t0
+
+
+def present_for(stims, canvas, n_frames=5):
+    target_time = n_frames * (1000/60.0) # convertir en ms
+    dt = timed_draw(stims, canvas)
+    remaining = target_time - dt
+    if remaining > 0:
+        exp.clock.wait(remaining)
+
 
 def make_circles(radius=50, preload=True):
     """Créer les cercles A et B (jaune se déplace, rouge et bleu restent fixes)"""
@@ -55,17 +67,25 @@ def add_tags(frameA, frameB, tag_radius):
 
 
 # ---------- Ternus trial ----------
+# je ne suis pas certaine d'avoir compris la différence entre: 
+# - ISI currently controls is how long the circles are shown on-screen
+# - ISI should control the amount of blank frames in-between.
+# je vais donc rajouter un canvas blanc qui va apparaître pendant un certain nb de frames (ISI)
 
 def run_trial(radius=50, isi_frames=3, color_tag=False, n_cycles=10):
     A, B = make_circles(radius, preload=not color_tag)
     if color_tag:
         A, B = add_tags(A, B, radius//5)
 
+    #ajout du dit blank frame
+    blank = stimuli.BlankScreen(colour=(255,255,255))
+    blank.preload()
+
     while True:
         present_for(A, canvas, 9)   # ~150 ms
-        if isi_frames > 0: exp.clock.wait(int(isi_frames*(1000/60.0)))
+        if isi_frames > 0: present_for([], blank, isi_frames) #présente le blank frame pendant isi_frame
         present_for(B, canvas, 9)
-        if isi_frames > 0: exp.clock.wait(int(isi_frames*(1000/60.0)))
+        if isi_frames > 0: present_for([], blank, isi_frames)
         if exp.keyboard.check(K_SPACE):
             return
 
@@ -79,7 +99,7 @@ control.initialize(exp)
 canvas = stimuli.Canvas(exp.screen.size, colour=(255,255,255 ))
 
 # 1. Element motion (low ISI, pas de tags)
-run_trial(radius=50, isi_frames=3, color_tag=False)
+run_trial(radius=50, isi_frames=0, color_tag=False)
 
 # 2. Group motion (high ISI, pas de tags)
 run_trial(radius=50, isi_frames=18, color_tag=False)
