@@ -1,0 +1,31 @@
+#Expyriment 1.0.0 (Python 3.12.3), .xpd-file, coding: UTF-8
+#date: Wed Oct 08 2025 22:57:14
+#--EXPERIMENT INFO
+#e mainfile: stroop.py
+#e sha1: c23b20
+#e modules: 
+#e Experiment: Stroop
+#e no between subject factors
+#--SUBJECT INFO
+#s id: 1
+subject_id,trial_block,trial_number,trial_type,word_meaning,text_color,response_time,accuracy
+1,1,1,match,red,"(255, 0, 0)",1480,True
+1,1,2,mismatch,green,"(0, 0, 255)",1645,True
+1,1,3,mismatch,red,"(255, 165, 0)",731,True
+1,1,4,mismatch,red,"(0, 0, 255)",906,True
+1,1,5,mismatch,orange,"(0, 255, 0)",569,True
+1,1,6,match,red,"(255, 0, 0)",656,True
+1,1,7,mismatch,orange,"(255, 0, 0)",940,True
+1,1,8,match,orange,"(255, 165, 0)",811,True
+1,1,9,match,green,"(0, 255, 0)",589,True
+1,1,10,match,blue,"(0, 0, 255)",423,True
+1,2,11,mismatch,blue,"(255, 165, 0)",665,True
+1,2,12,match,orange,"(255, 165, 0)",750,True
+1,2,13,match,green,"(0, 255, 0)",629,True
+1,2,14,match,orange,"(255, 165, 0)",619,True
+1,2,15,mismatch,orange,"(0, 0, 255)",701,True
+1,2,16,match,blue,"(0, 0, 255)",569,True
+1,2,17,match,blue,"(0, 0, 255)",499,True
+1,2,18,mismatch,blue,"(255, 0, 0)",686,True
+1,2,19,match,green,"(0, 255, 0)",634,True
+1,2,20,match,orange,"(255, 165, 0)",776,True
