@@ -1,16 +1,16 @@
 from playsound3 import playsound
 from expyriment import design, control, stimuli
-from expyriment.misc.constants import C_WHITE, C_BLACK, K_j, K_f
+from expyriment.misc.constants import C_WHITE, C_BLACK, K_r, K_b, K_g, K_o
 import random
 
 """ Constants """
-KEYS = [K_j, K_f]
+KEYS = [K_r, K_b, K_g, K_o]
 TRIAL_TYPES = ["match", "mismatch"] 
 COLORS = [(255,0,0), (0,0,255), (0,255,0), (255,165,0)]
 WORDS = ["red", "blue", "green", "orange"]
 
-N_BLOCKS = 2
-N_TRIALS_IN_BLOCK = 16
+N_BLOCKS = 8
+N_TRIALS_IN_BLOCK = 8
 
 INSTR_START = """
 In this task, you have to indicate whether the meaning of a word and the color of its font match.
@@ -70,7 +70,7 @@ def run_trial(block_id, trial_id, trial_type, word, color):
     present_for(fixation, t=500)
     stim.present()
     key, rt = exp.keyboard.wait(KEYS)
-    correct = key == K_j if trial_type == "match" else key == K_f
+    correct = (key == K_r and color == (255,0,0)) or ( key == K_b and color == (0,0,255)) or (key == K_g and color == (0,255,0)) or (key == K_o and color == (255,165,0))
     exp.data.add([block_id, trial_id, trial_type, word, color, rt, correct])
     feedback = feedback_correct if correct else feedback_incorrect
     feedback.present()
