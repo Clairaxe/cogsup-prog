@@ -34,28 +34,48 @@
         `
     };
 
-    let timeline = [helloTrial];
-
-    let stimulusDisplayTrial = {
+    const stimulusDisplayTrial = {
       type: jsPsychHtmlKeyboardResponse,
       stimulus: jsPsych.timelineVariable("targetKey"),
+      choices: KEYS,
+      post_trial_gap: 0,
+      data: {
+        task: 'stimulus'
+      }
+    };
+
+    const feedbackTrial = {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: function() {
+        const last = jsPsych.data.get().last(1).values()[0];
+        const shown = last.stimulus !== undefined ? String(last.stimulus) : '';
+        const response = last.response;
+        const correct = response !== null && String(response).toUpperCase() === shown.toUpperCase();
+        const color = correct ? 'green' : 'red';
+        return `<div style="font-size:20px; text-align:center; color:${color};">${shown}</div>`;
+      },
+      choices: "NO_KEYS", // participant cannot respond during feedback
+      trial_duration: 500,
+      post_trial_gap: BLANK_DURATION,
+      data: {
+        task: 'feedback'
+      }
     };
 
     let targetKeyVariableList = [];
     for (let key of KEYS){
-      targetKeyVariableList.push({targetKey: key})
+      targetKeyVariableList.push({targetKey: key});
     }
 
-    timeline.push({
-      timeline:  [stimulusDisplayTrial],
+    const trial_pair = {
+      timeline: [stimulusDisplayTrial, feedbackTrial],
       timeline_variables: targetKeyVariableList,
-      // You can put common parameters here
       choices: KEYS,
-      post_trial_gap: BLANK_DURATION,
-      // Randomize order and repeat
       randomize_order: true,
       repetitions: NUMBER_OF_TRIALS_PER_KEY,
-    })
+    };
+
+    let timeline = [helloTrial, trial_pair];
 
     jsPsych.run(timeline);
   </script>
