@@ -4,6 +4,7 @@
     <title>My experiment</title>
     <script src="https://unpkg.com/jspsych@8.0.2"></script>
     <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@2.0.0"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-html-slider-response@2.0.0"></script>
     <link href="https://unpkg.com/jspsych@8.0.2/css/jspsych.css" rel="stylesheet" type="text/css" />
   </head>
   <body></body>
@@ -29,20 +30,21 @@
       }
 
       return {
-        timeline:  [stimulusDisplayTrial]
+        timeline: [
+          stimulusDisplayTrial,
+          slider
+        ]
       }
     }
 
     function createShuffledListOfTrials(keys, trialsPerKey, blankDuration, slider){
       let possibleTrials = [];
 
-      for (let k = 0; k < keys.length; k += 1){
-        // We counter balance upper and lower case
+      for (let k = 0; k < keys.length; k++){
         for (let lowerCase of [true, false]){
-          possibleTrials.push(createKeyPressTrial(keys[k], lowerCase, keys, blankDuration));
-          return {
-            trials:  [slider] //show the confidence slider after each trial
-          };
+          possibleTrials.push(
+            createKeyPressTrial(keys[k], lowerCase, keys, blankDuration, slider)
+          );
         }
       }
 
@@ -70,27 +72,21 @@
         `
     };
 
-    var trialSlider = {
-    type: jsPsychHtmlSliderResponse, // Slider from the doc
-    stimulus: `<div style="width:500px;">
-        <p>How confident are you about your answer?</p>
-        <div style="width:240px; float: left;">
-            <p>NOT AT ALL</p>
+    const trialSlider = {
+      type: jsPsychHtmlSliderResponse,
+      stimulus: `
+        <div style="width:500px;">
+            <p>How confident are you about your answer?</p>
         </div>
-        <div style="width:240px; float: right;">
-            <p>VERY/p>
-        </div>
-        </div>`,
-    require_movement: true,
-    labels: ['0%', '50%', '100%']
-};
+      `,
+      labels: ['0%', '50%', '100%'],
+      require_movement: true
+    };
 
-    SLIDER = trialSlider
-    let trials = createShuffledListOfTrials(KEYS, NUMBER_OF_TRIALS_PER_KEY, BLANK_DURATION,SLIDER);
+    let trials = createShuffledListOfTrials(KEYS, NUMBER_OF_TRIALS_PER_KEY, BLANK_DURATION, trialSlider);
 
     let timeline = [helloTrial];
 
-    // Because we nested blank screen after the trial, even after order randomiztion the two will be in succession.
     for (let trial of trials){
       timeline.push(trial);
     }
